@@ -18,7 +18,15 @@ def concat(*parts: str, sep: str = ' ') -> str:
     Returns:
         Joined string. If no parts are provided, return an empty string.
     """
-    raise NotImplemented
+    if len(parts) == 0:
+        return ""
+    result = ""
+    for i, part in enumerate(parts):
+        if i > 0:
+           result += sep
+        result += part
+    return result
+
 
 
 def build_profile(name: str, **attrs) -> Dict[str, object]:
@@ -33,7 +41,10 @@ def build_profile(name: str, **attrs) -> Dict[str, object]:
     Returns:
         A dict containing at least {'name': name} plus attrs
     """
-    raise NotImplemented
+    least = {'name': name}
+    for key, value in attrs.items():
+        least[key] = value
+    return least
 
 
 # --- Tests for exercise 2 ---

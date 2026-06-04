@@ -20,7 +20,8 @@ def add(a: float, b: float) -> float:
     Returns:
         The numeric sum a + b
     """
-    raise NotImplemented
+    return a + b
+
 
 
 def repeat(s: str, n: int = 1) -> str:
@@ -35,7 +36,13 @@ def repeat(s: str, n: int = 1) -> str:
     Returns:
         The repeated string
     """
-    raise NotImplemented
+    # s == "a" n == 5
+    if n <= 0:
+        return ""
+    result = ""
+    for _ in range(n):
+        result = result+s
+    return result
 
 
 # --- Tests for exercise 1 ---
