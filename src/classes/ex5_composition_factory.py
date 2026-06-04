@@ -20,7 +20,11 @@ class Transaction:
     """
     def __init__(self, amount: float, description: str):
         """Create a Transaction. amount may be positive or negative. description cannot be empty."""
-        raise NotImplemented
+        if description.strip() == "":
+            raise ValueError("description cannot be empty")
+
+        self.amount = amount
+        self.description = description
 
 
 class Account:
@@ -33,12 +37,23 @@ class Account:
 
     def __init__(self, owner: str, transactions: List[Transaction] = None):
         """Create an Account. Owner must be non-empty."""
-        raise NotImplemented
+        if owner.strip() == "":
+            raise ValueError("Owner cannot be empty")
+
+        if transactions is None:
+            transactions = []
+
+        self.transactions = transactions
+        self.owner = owner
 
     @property
     def balance(self) -> float:
         """Return the current balance as sum of transaction amounts."""
-        raise NotImplemented
+        balance = 0
+        for transaction in self.transactions:
+            balance += transaction.amount
+        return balance
+
 
     def deposit(self, amount: float, description: str = 'deposit') -> None:
         """Add a deposit transaction.
@@ -46,7 +61,14 @@ class Account:
         Raises:
             ValueError: if amount is not positive or description empty
         """
-        raise NotImplemented
+        if amount <= 0:
+            raise ValueError("amount must be positive")
+
+        if description.strip() == "":
+            raise ValueError("description cannot be empty")
+
+        self.transactions.append(Transaction(amount, description))
+
 
     def withdraw(self, amount: float, description: str = 'withdraw') -> None:
         """Add a withdrawal transaction (as negative amount).
@@ -54,7 +76,13 @@ class Account:
         Raises:
             ValueError: if amount is not positive or description empty
         """
-        raise NotImplemented
+        if amount <= 0:
+            raise ValueError("amount must be positive")
+
+        if description.strip() == "":
+            raise ValueError("description cannot be empty")
+
+        self.transactions.append(Transaction(-amount, description))
 
     @classmethod
     def from_dict(cls, data: dict):
@@ -62,7 +90,14 @@ class Account:
 
         Each transaction dict has keys 'amount' and 'description'.
         """
-        raise NotImplemented
+        transactions_data = data.get("transactions", [])
+
+        transactions = [
+            Transaction(t["amount"], t["description"])
+            for t in transactions_data
+        ]
+
+        return cls(data["owner"], transactions)
 
 
 # -------------------- Tests --------------------
