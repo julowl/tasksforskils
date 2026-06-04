@@ -1,0 +1,28 @@
+I want to create a course on python programming
+
+
+
+Let's do the following:
+
+
+
+For the topic of {TOPIC} create 5 exercises, that spot different approaches/nuances of the topic.
+
+How to do it:
+
+1 Create a plan on what do you need to cover
+2 Review the plan
+3 Create 5-7 files with code and placeholders, that students need to fill.
+
+Rules:
+
+1 Do some theory explanation in the beginning, but limit it with 3 minutes of reading maximum.
+2 Then write some code with placeholders
+3 Put "raise NotImplemented" where the user must implement there code
+4 Create a bunch of tests on each exercises
+5 Add a short summary in the end
+6 Save the files in the src/<shortTopicName> directory.
+7 Add docstrings for the methods the student needs to implement
+8 Add a short theory.md file and a russian version theory_ru.md
+9 Use unittests for tests and create many tests, that covers different situations
+
