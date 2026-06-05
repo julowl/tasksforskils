@@ -1,6 +1,53 @@
-Continue the previous task and complete it now.
+---
+name: Task creation
+alwaysApply: false
+description: Use this rule if you need to create a new task. For example if the user asks to create a task on the topic of "Typing" use this rule
+---
 
-For the topic of {TOPIC} create 5 exercises that highlight different approaches and nuances of the topic.
+For the topic of {TOPIC} create 7 exercises that highlight different approaches and nuances of the topic.
+
+# Create python exercises
+
+Read the sections, create an execution plan, and then implement it.
+
+## Plan the implementation
+
+1. Create a plan on what subtopics should be covered, which exercises should be created.
+2. Create a list of 7 source files
+3. Review the plan briefly (one short paragraph).
+
+## How to create a python source file
+
+1. Add a docstring on top of the file with a brief description on what this file covers (up to 5 sentences)
+2. Add a docstring for every function, method, and class
+3. Add type annotation everywhere
+
+### Exercises
+1. You create stubs of functions/classes/methods etc, the student must implement them
+2. You should add a docstring with requirements
+3. You should provide pydoc tests (see the example)
+4. You should create thorough tests on each exercise, use unittest module for the tests. At least 5 tests on each exercise
+5. You should raise the not implemented error in the exercises
+
+Example:
+Input Topic = dictionaries
+Output:
+```python
+def invert_dictionary(d: dict) -> dict:
+    """
+    Create an inverted dictionary e.q. key becomes a value and value a key. 
+    If some value is not unique, the ValueError should be raised
+    Is some value can't be a key (unhashable) the Value error should be raised
+    >>> invert_dictionary({})
+    {}
+    
+    >>> invert_dictionary({1: "one"})
+    {"one": 1}
+    
+    >>> invert_dictionary({1: 1, 2: 1})
+    ValueError
+    """
+```
 
 Requirements and steps:
 1. Create a short plan of what needs to be covered for {TOPIC}.
@@ -11,7 +58,7 @@ Requirements and steps:
    - Use "raise NotImplemented" where the student must implement code.
    - Include docstrings for every function or method the student must implement, describing inputs, outputs, and behavior.
 4. Begin each exercise with a theory section limited to ~3 minutes of reading (concise explanation).
-   - Also create two theory files in src/<shortTopicName>: theory.md and theory_ru.md (Russian translation).
+   - Also, create two theory files in src/<shortTopicName>: theory.md and theory_ru.md (Russian translation).
 5. For each exercise file:
    - Provide code skeletons with clear placeholders.
    - Add comprehensive unittests using Python's unittest module.
