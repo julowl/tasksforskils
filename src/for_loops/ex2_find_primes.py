@@ -13,8 +13,10 @@ def is_prime(num: int) -> bool:
     if num < 2:
         return False
     # Simple trial division — check from 2 to num-1 (or up to sqrt for speed)
-    raise NotImplemented
-
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+    return True
 
 def primes_up_to(n: int) -> List[int]:
     """Return a list of primes less than or equal to n.
@@ -26,7 +28,11 @@ def primes_up_to(n: int) -> List[int]:
         List of prime numbers in ascending order.
     """
     # TODO: use for loops to collect primes
-    raise NotImplemented
+    primes = []
+    for i in range(2, n + 1):
+        if is_prime(i):
+            primes.append(i)
+    return primes
 
 
 if __name__ == "__main__":

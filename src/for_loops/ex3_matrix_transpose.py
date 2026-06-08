@@ -17,7 +17,15 @@ def transpose(matrix: List[List[object]]) -> List[List[object]]:
         Transposed matrix as a list of rows.
     """
     # Use nested for loops to create the transposed matrix
-    raise NotImplemented
+    result = []
+
+    for col in range(len(matrix[0])):  # по столбцам
+        new_row = []
+        for row in range(len(matrix)):  # по строкам
+            new_row.append(matrix[row][col])
+        result.append(new_row)
+
+    return result
 
 
 if __name__ == "__main__":
