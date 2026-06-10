@@ -22,7 +22,14 @@ def chunked(iterable: Iterable[T], n: int) -> Iterator[List[T]]:
         Lists with up to n items in order.
     """
     # Implement using a for loop and yield
-    raise NotImplemented
+    current_chunk = []
+    for item in iterable:
+        current_chunk.append(item)
+        if len(current_chunk) == n:
+            yield current_chunk
+            current_chunk = []
+    yield current_chunk
+
 
 
 if __name__ == "__main__":
