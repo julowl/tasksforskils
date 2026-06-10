@@ -13,7 +13,12 @@ def index_items(items: Iterable[object]) -> List[str]:
 
     Example: index_items(['a','b']) -> ['0:a', '1:b']
     """
-    raise NotImplemented
+    result = []
+    for index, item in enumerate(items):
+        result.append(f"{index}:{item}")
+    return result
+
+
 
 
 def combine_lists(a: Iterable[object], b: Iterable[object]) -> List[Tuple[object, object]]:
@@ -21,7 +26,7 @@ def combine_lists(a: Iterable[object], b: Iterable[object]) -> List[Tuple[object
 
     The result length should be the length of the shorter iterable.
     """
-    raise NotImplemented
+    return list(zip(a, b))
 
 
 if __name__ == "__main__":
