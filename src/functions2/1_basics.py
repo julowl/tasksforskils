@@ -23,7 +23,8 @@ def add(a: int, b: int) -> int:
     >>> add(-1, 1)
     0
     """
-    raise NotImplementedError
+    summ = (a + b)
+    return summ
 
 
 def is_palindrome(s: str) -> bool:
@@ -39,7 +40,18 @@ def is_palindrome(s: str) -> bool:
     >>> is_palindrome('hello')
     False
     """
-    raise NotImplementedError
+    new_s = [_ for _ in s.lower() if _.isalpha()]
+    left = 0
+    right = len(new_s)-1
+    while left <= right:
+        if new_s[left] == new_s[right]:
+            left += 1
+            right -= 1
+        else:
+            return False
+    return True
+
+
 
 
 def split_even_odd(nums: List[int]) -> Tuple[List[int], List[int]]:
@@ -55,7 +67,14 @@ def split_even_odd(nums: List[int]) -> Tuple[List[int], List[int]]:
     >>> split_even_odd([])
     ([], [])
     """
-    raise NotImplementedError
+    evens = []
+    odds = []
+    for i in nums:
+        if i % 2 == 0:
+            evens.append(i)
+        else:
+            odds.append(i)
+    return evens, odds
 
 
 # -------------------- Tests --------------------

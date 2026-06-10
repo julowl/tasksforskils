@@ -24,7 +24,11 @@ def merge_dicts(*dicts: Dict[Any, Any]) -> Dict[Any, Any]:
     >>> merge_dicts({1: 'a'}, {1: 'b', 2: 'c'})
     {1: 'b', 2: 'c'}
     """
-    raise NotImplementedError
+    new_dict = {}
+    for dict in dicts:
+        for key in dict:
+            new_dict[key] = dict[key]
+    return new_dict
 
 
 def call_with_kwargs(func: Callable[..., Any], **kwargs: Any) -> Any:
@@ -39,7 +43,7 @@ def call_with_kwargs(func: Callable[..., Any], **kwargs: Any) -> Any:
     >>> call_with_kwargs(f, x=3, y=4)
     7
     """
-    raise NotImplementedError
+    return func(**kwargs)
 
 
 # -------------------- Tests --------------------

@@ -23,7 +23,8 @@ def apply_twice(func: Callable[[T], T], value: T) -> T:
     >>> apply_twice(lambda x: x + 1, 3)
     5
     """
-    raise NotImplementedError
+    return func(func(value))
+
 
 
 def compose(f: Callable[[U], T], g: Callable[[T], U]) -> Callable[[T], T]:
@@ -37,7 +38,9 @@ def compose(f: Callable[[U], T], g: Callable[[T], U]) -> Callable[[T], T]:
     >>> h(4)
     14
     """
-    raise NotImplementedError
+    def h(x: T) -> T:
+        return f(g(x))
+    return h
 
 
 def make_multiplier(n: int) -> Callable[[int], int]:
@@ -48,7 +51,9 @@ def make_multiplier(n: int) -> Callable[[int], int]:
     >>> doubler(3)
     6
     """
-    raise NotImplementedError
+    def f(num:int) -> int:
+        return num * n
+    return f
 
 
 # -------------------- Tests --------------------
@@ -69,7 +74,7 @@ class TestApplyTwice(unittest.TestCase):
         self.assertEqual(apply_twice(lambda x: x, 5), 5)
 
     def test_complex(self):
-        self.assertEqual(apply_twice(lambda x: x * 2 + 1, 1), 5)
+        self.assertEqual(apply_twice(lambda x: x * 2 + 1, 1), 7)
 
 
 class TestCompose(unittest.TestCase):
