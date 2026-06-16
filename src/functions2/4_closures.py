@@ -24,7 +24,16 @@ def make_counter(start: int = 0) -> Callable[[], int]:
     >>> c()
     12
     """
-    raise NotImplementedError
+
+
+    counter = start
+
+    def count():
+       nonlocal counter
+       counter += 1
+       return counter
+
+    return count
 
 
 def password_checker(correct: str) -> Callable[[str], bool]:
@@ -41,7 +50,12 @@ def password_checker(correct: str) -> Callable[[str], bool]:
     >>> check('wrong')
     False
     """
-    raise NotImplementedError
+    def check(password: str) -> bool:
+        if correct == password:
+            return True
+        return False
+    return check
+
 
 
 def memoize_single_arg(func: Callable[[Any], Any]) -> Callable[[Any], Any]:
@@ -64,7 +78,17 @@ def memoize_single_arg(func: Callable[[Any], Any]) -> Callable[[Any], Any]:
     >>> calls['n']
     1
     """
-    raise NotImplementedError
+    cache = {}
+    def wrapper(x):
+        if x in cache:
+            return cache[x]
+
+        result = func(x)
+        cache[x] = result
+        return result
+
+    return wrapper
+
 
 
 # -------------------- Tests --------------------
