@@ -22,7 +22,11 @@ def factorial(n: int) -> int:
     >>> factorial(4)
     24
     """
-    raise NotImplementedError
+    if n < 0:
+        raise ValueError(f"n! can't be {n}, n >= 0")
+    if n == 0:
+        return 1
+    return n * factorial(n-1)
 
 
 def flatten(nested: List[Any]) -> List[Any]:
@@ -35,7 +39,14 @@ def flatten(nested: List[Any]) -> List[Any]:
     >>> flatten([1, [2, [3, 4], 5], 6])
     [1, 2, 3, 4, 5, 6]
     """
-    raise NotImplementedError
+    single_list = []
+    for item in nested:
+        if isinstance(item, list):
+            flat_list = flatten(item)
+            single_list.extend(flat_list)
+        else:
+            single_list.append(item)
+    return single_list
 
 
 def fibonacci(n: int) -> int:
@@ -49,7 +60,11 @@ def fibonacci(n: int) -> int:
     >>> fibonacci(5)
     5
     """
-    raise NotImplementedError
+    if n < 0:
+        raise ValueError(f"{n} should be >= 0")
+    if n == 0 or n == 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
 
 
 # -------------------- Tests --------------------
