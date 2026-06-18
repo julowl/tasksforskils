@@ -24,7 +24,18 @@ def ensure_non_negative(func: Callable[..., Any]) -> Callable[..., Any]:
     >>> f(1)
     1
     """
-    raise NotImplementedError
+
+
+
+    def wrapper(*args):
+
+        for arg in args:
+            if isinstance(arg, (int, float)) and arg < 0:
+              raise ValueError("arg can't be negative")
+
+        return func(*args)
+
+    return wrapper
 
 
 def count_calls(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -60,7 +71,16 @@ def ensure_return_type(expected: Type) -> Callable[[Callable[..., Any]], Callabl
     >>> f()
     1
     """
-    raise NotImplementedError
+
+    def decorator(func):
+        def types(*args):
+            value = func(*args)
+            if not isinstance(value, expected):
+                raise TypeError
+            return value
+
+        return types
+    return decorator
 
 
 # -------------------- Tests --------------------
