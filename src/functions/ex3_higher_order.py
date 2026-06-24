@@ -18,7 +18,7 @@ def apply_twice(func: Callable[[int], int], x: int) -> int:
     Returns:
         Result of applying func twice
     """
-    raise NotImplemented
+    return func(func(x))
 
 
 def make_multiplier(n: int) -> Callable[[int], int]:
@@ -34,7 +34,10 @@ def make_multiplier(n: int) -> Callable[[int], int]:
     Returns:
         A function f(x) that returns x * n
     """
-    raise NotImplemented
+    def multiply(x):
+        return n * x
+
+    return multiply
 
 
 # --- Tests for exercise 3 ---

@@ -29,12 +29,25 @@ class Matrix:
 
         Raise ValueError for rows of differing lengths.
         """
-        raise NotImplementedError
+        first_len = len(data[0])
+        copied = []
+        for row in data:
+            if len(row) != first_len:
+                raise ValueError
+            copied.append(row[:])
+        self.data = copied
 
     @property
     def shape(self) -> Tuple[int, int]:
         """Return (rows, cols). Empty matrix [] has shape (0,0)."""
-        raise NotImplementedError
+        if not self.data:
+            return (0, 0)
+
+        rows = len(self.data)
+        cols = len(self.data[0])
+
+        return (rows, cols)
+
 
     def is_square(self) -> bool:
         """Return True if matrix is square (n x n)."""

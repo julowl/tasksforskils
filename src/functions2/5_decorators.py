@@ -54,7 +54,13 @@ def count_calls(func: Callable[..., Any]) -> Callable[..., Any]:
     >>> f.call_count
     1
     """
-    raise NotImplementedError
+    def calls(*args):
+        calls.call_count += 1
+        return func(*args)
+
+    calls.call_count = 0
+
+    return calls
 
 
 def ensure_return_type(expected: Type) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
