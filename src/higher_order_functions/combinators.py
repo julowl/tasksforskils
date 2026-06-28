@@ -17,7 +17,10 @@ def compose(f: Callable[[Any], Any], g: Callable[[Any], Any]) -> Callable[[Any],
     >>> h(3)
     7
     """
-    raise NotImplementedError
+    def h(x):
+        return f(g(x))
+
+    return h
 
 
 def map_with(func: Callable[[Any], Any], data: Iterable[Any]) -> List[Any]:
@@ -28,7 +31,11 @@ def map_with(func: Callable[[Any], Any], data: Iterable[Any]) -> List[Any]:
     >>> map_with(lambda x: x*2, [1,2,3])
     [2, 4, 6]
     """
-    raise NotImplementedError
+    result = []
+    for item in data:
+        new_value = func(item)
+        result.append(new_value)
+    return result
 
 
 def curry_two_arg(func: Callable[[Any, Any], Any]) -> Callable[[Any], Callable[[Any], Any]]:
@@ -42,7 +49,14 @@ def curry_two_arg(func: Callable[[Any, Any], Any]) -> Callable[[Any], Callable[[
     >>> cur(2)(3)
     5
     """
-    raise NotImplementedError
+
+    def first(a):
+        def second(b):
+            return func(a, b)
+
+        return second
+
+    return first
 
 
 # -------------------- Tests --------------------
