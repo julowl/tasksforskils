@@ -14,7 +14,15 @@ def partition(data: Iterable[Any], predicate: Callable[[Any], bool]) -> Tuple[Li
     >>> partition([1,2,3,4], lambda x: x%2==0)
     ([2, 4], [1, 3])
     """
-    raise NotImplementedError
+    true_items = []
+    false_items = []
+    for item in data:
+        if predicate(item):
+            true_items.append(item)
+        else:
+            false_items.append(item)
+
+    return (true_items, false_items)
 
 
 def apply_and_aggregate(data: Iterable[Any], map_fn: Callable[[Any], Any], agg_fn: Callable[[Iterable[Any]], Any]) -> Any:
@@ -25,7 +33,10 @@ def apply_and_aggregate(data: Iterable[Any], map_fn: Callable[[Any], Any], agg_f
     >>> apply_and_aggregate([1,2,3], lambda x: x*2, sum)
     12
     """
-    raise NotImplementedError
+    result = []
+    for item in data:
+        result.append(map_fn(item))
+    return agg_fn(result)
 
 
 def filter_map_reduce(data: Iterable[Any], filter_fn: Callable[[Any], bool], map_fn: Callable[[Any], Any], reduce_fn: Callable[[Any, Any], Any], initial: Any) -> Any:
@@ -37,7 +48,16 @@ def filter_map_reduce(data: Iterable[Any], filter_fn: Callable[[Any], bool], map
     >>> filter_map_reduce([1,2,3,4], lambda x: x%2==0, lambda x: x*10, add, 0)
     60
     """
-    raise NotImplementedError
+    filtered, _ = partition(data, filter_fn)
+
+    mapped = apply_and_aggregate(map_fn, filtered)
+
+    result = initial
+
+    for item in mapped:
+        result = reduce_fn(result, item)
+
+    return result
 
 
 # -------------------- Tests --------------------
