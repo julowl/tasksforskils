@@ -31,6 +31,7 @@ class Matrix:
         """Return the sum of diagonal elements. Raise ValueError if not square."""
         raise NotImplementedError
 
+    
     def determinant(self) -> float:
         """Return determinant (recursive). Raise ValueError if not square."""
         raise NotImplementedError

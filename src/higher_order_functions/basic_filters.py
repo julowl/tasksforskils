@@ -23,7 +23,11 @@ def apply_filter(data: Iterable[Any], filter_fn: Callable[[Any], bool]) -> List[
     >>> apply_filter([], lambda x: True)
     []
     """
-    raise NotImplementedError
+    filter = []
+    for i in data:
+        if filter_fn(i):
+            filter.append(i)
+    return filter
 
 
 def combine_filters_and_apply(data: Iterable[Any], filters: Sequence[Callable[[Any], bool]]) -> List[Any]:
@@ -36,7 +40,10 @@ def combine_filters_and_apply(data: Iterable[Any], filters: Sequence[Callable[[A
     >>> combine_filters_and_apply([1,2,3,4,5], [is_even, gt_two])
     [4]
     """
-    raise NotImplementedError
+    filtered = data
+    for filter in filters:
+        filtered = apply_filter(filtered, filter)
+    return filtered
 
 
 def negate_filter(filter_fn: Callable[[Any], bool]) -> Callable[[Any], bool]:
@@ -51,7 +58,9 @@ def negate_filter(filter_fn: Callable[[Any], bool]) -> Callable[[Any], bool]:
     >>> is_odd(4)
     False
     """
-    raise NotImplementedError
+    def negat(x):
+       return not filter_fn(x)
+    return negat
 
 
 # -------------------- Tests --------------------

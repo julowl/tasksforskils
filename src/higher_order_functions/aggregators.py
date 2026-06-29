@@ -6,18 +6,29 @@ Exercises about aggregation functions: receiving aggregator functions or returni
 from typing import Any, Callable, Iterable, List, Sequence
 
 
-def apply_aggregator(data: Iterable[Any], agg_fn: Callable[[Iterable[Any]], Any]) -> Any:
+def apply_aggregator(data: list[Any], agg_fn: Callable[[Any, Any], Any]) -> Any:
     """
     Apply a user-provided aggregation function to the data and return its result.
 
     Examples:
-    >>> apply_aggregator([1,2,3], sum)
+    >>> apply_aggregator([1,2,3], lambda x, y: x + y)
     6
 
-    >>> apply_aggregator([], lambda xs: 0)
+    >>> apply_aggregator([1,2,3], lambda x, y: min(x, y))
+    1
+
+    >>> apply_aggregator([1,2,3], lambda x, y: x * y)
+    6
+
+    >>> apply_aggregator([], lambda x, y: 0)
     0
     """
-    raise NotImplementedError
+    if len(data) == 0:
+        raise ValueError('Cannot apply aggregation to empty list')
+    result = data[0]
+    for x in data[1:]:
+        result = agg_fn(result, x)
+    return result
 
 
 def make_sum_aggregator(offset: int = 0) -> Callable[[Iterable[int]], int]:
@@ -29,7 +40,10 @@ def make_sum_aggregator(offset: int = 0) -> Callable[[Iterable[int]], int]:
     >>> agg([1,2,3])
     16
     """
-    raise NotImplementedError
+    def summ(data: Iterable[int]) -> int:
+        return sum(data) + offset
+    return summ
+
 
 
 def compose_aggregators(agg1: Callable[[Iterable[Any]], Any], agg2: Callable[[Iterable[Any]], Any]) -> Callable[[Iterable[Any]], tuple]:
@@ -41,7 +55,10 @@ def compose_aggregators(agg1: Callable[[Iterable[Any]], Any], agg2: Callable[[It
     >>> a([1,2,3])
     (6, 3)
     """
-    raise NotImplementedError
+    def new_agr(agr: Iterable[Any]):
+        agr = list(agr)
+        return agg1(agr), agg2(agr)
+    return new_agr
 
 
 # -------------------- Tests --------------------

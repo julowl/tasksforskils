@@ -29,8 +29,12 @@ class Matrix:
 
         Raise ValueError for rows of differing lengths.
         """
-        first_len = len(data[0])
+
         copied = []
+        if len(data) == 0:
+            self.data = []
+            return
+        first_len = len(data[0])
         for row in data:
             if len(row) != first_len:
                 raise ValueError
