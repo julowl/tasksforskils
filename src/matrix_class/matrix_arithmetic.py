@@ -4,6 +4,7 @@ matrix_arithmetic.py
 Exercises for implementing arithmetic operations on Matrix classes: addition,
 subtraction and scalar multiplication/operators.
 """
+from copy import deepcopy
 from typing import List
 
 
@@ -24,14 +25,35 @@ class Matrix:
 
     def __init__(self, data: List[List[float]]):
         """Store deep copy and validate rectangular shape."""
-        raise NotImplementedError
+        if len(data) >= 2:
+            row1 = len(data[0])
+            for row in data:
+                if len(row) != row1:
+                    raise ValueError("All rows must have the same length")
+
+        new_data = deepcopy(data)
+        self._new_data = new_data
+
 
     def _shape(self):
-        raise NotImplementedError
+        n_rows = len(self._new_data)
+        if n_rows == 0:
+            return (0,0)
+        n_columns = len(self._new_data[0])
+        return (n_rows, n_columns)
 
     def __add__(self, other: 'Matrix') -> 'Matrix':
         """Element-wise addition. Raise ValueError for shape mismatch."""
-        raise NotImplementedError
+        if self._shape() != other._shape():
+            raise ValueError('Matrix shape mismatch')
+        new_matrix_data = []
+        n_rows, n_columns = self._shape()
+        for i in range(n_rows):
+            new_row = []
+            for j in range(n_columns):
+                new_row.append(self._new_data[i][j] + other._new_data[i][j])
+            new_matrix_data.append(new_row)
+        return Matrix(new_matrix_data)
 
     def __sub__(self, other: 'Matrix') -> 'Matrix':
         """Element-wise subtraction."""

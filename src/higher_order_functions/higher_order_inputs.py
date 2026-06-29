@@ -48,16 +48,17 @@ def filter_map_reduce(data: Iterable[Any], filter_fn: Callable[[Any], bool], map
     >>> filter_map_reduce([1,2,3,4], lambda x: x%2==0, lambda x: x*10, add, 0)
     60
     """
+    def reduce(items: list[Any]):
+        first = initial
+        for item in items:
+            first = reduce_fn(first, item)
+        return first
+
     filtered, _ = partition(data, filter_fn)
 
-    mapped = apply_and_aggregate(map_fn, filtered)
+    mapped = apply_and_aggregate(filtered, map_fn, reduce)
 
-    result = initial
-
-    for item in mapped:
-        result = reduce_fn(result, item)
-
-    return result
+    return mapped
 
 
 # -------------------- Tests --------------------
